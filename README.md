@@ -1,4 +1,5 @@
-MONEY MOVEMENTS PROJECT
+**MONEY MOVEMENTS PROJECT**
+
 Brief introduction:
 - This project consists on a django webserver where the users can import their bank account movements via csv file or insert them manually.
 - Once the movements are in the app, the user would be able to analyse them and to see where the money is spent.
