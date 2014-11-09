@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^$', 'baseApp.views.index'),
     url(r'^api/', include('apiApp.urls')),
     url(r'^login/', 'userApp.views.user_login'),
+    url(r'^logout/', 'userApp.views.user_logout'),
     url(r'^sign_up/', 'userApp.views.sign_up'),
     url(r'^admin/', include(admin.site.urls)),
 )

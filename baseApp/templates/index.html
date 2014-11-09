@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <a href="{% url 'userApp.views.user_logout' %}">Logout</a>
     <div ng-app="movementApp">
         <h2>Hello {{ user.username }}</h2>
         <p>You can upload a csv file with the format date(dd/mm/yy), description, amount, balance (if known) </p>

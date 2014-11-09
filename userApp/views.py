@@ -26,6 +26,10 @@ def user_login(request):
 
     return Http404
 
+def user_logout(request):
+    logout(request)
+    return redirect('/')
+
 def sign_up(request):
     if 'GET' == request.method:
         if not request.user.is_authenticated():
