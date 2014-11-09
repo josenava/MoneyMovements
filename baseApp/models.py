@@ -9,5 +9,5 @@ class Movement(models.Model):
     date = models.DateField()
     user = models.ForeignKey(User)
 
-    def __unicode__(self):
-        return self.description, self.amount, self.balance, self.date, self.user
+    # def __unicode__(self):
+    #     return self.description, self.amount, self.balance, self.date, self.user

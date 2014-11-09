@@ -1,7 +1,7 @@
 /**
  * Created by josenava on 05/11/14.
  */
-app.controller('MovementCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('UploadMovementsCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.movement = {};
     $scope.addMovement = function() {
         console.log($scope.movement.date, $scope.movement.description, $scope.movement.amount);

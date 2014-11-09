@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import Http404, JsonResponse
 import json
 import csv
+from django.core import serializers
 from baseApp.models import Movement
 from django.utils.timezone import get_current_timezone
 from datetime import datetime
@@ -47,3 +48,8 @@ def addMovement(request):
         movement.save()
         return JsonResponse({'uploaded': 'ok'})
     return Http404
+
+def getMovements(request, nMov):
+    if 'GET' == request.method and request.user.is_authenticated():
+        movements = serializers.serialize('json', Movement.objects.filter(user=request.user).order_by('amount')[:nMov], fields=('description', 'amount'))
+        return JsonResponse({'nMov': nMov, 'movements': movements})
