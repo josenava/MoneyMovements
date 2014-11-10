@@ -8,7 +8,7 @@ app.config(['$httpProvider', '$routeProvider', '$locationProvider', function($ht
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
     $routeProvider.
-        when('/', {
+        when('/addMovements', {
             controller: 'UploadMovementsCtrl',
             templateUrl: '/static/templates_angularViews/uploadMovements.html'
         })
