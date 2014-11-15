@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <a href="{% url 'userApp.views.user_logout' %}">Logout</a>
-    <div ng-app="movementApp">
+    <div ng-app="movementApp" class="angular-content">
         <h2>Hello {{ user.username }}</h2>
         <a href="addMovements" class="btn btn-default">Add movements</a>
         <a href="movements" class="btn btn-default">Show movements</a>

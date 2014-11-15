@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'baseApp',
     'apiApp',
     'userApp',
@@ -88,4 +89,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATICFILES_FINDERS = (
+    # other static files finder
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
 STATIC_URL = '/static/'
+
+
+STATIC_ROOT = '/Users/josenava/web_development/python/money_movements/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(__file__),'static'),
+)
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+)
+
+COMPRESS_ENABLED = True
