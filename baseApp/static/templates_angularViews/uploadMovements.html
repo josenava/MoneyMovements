@@ -1,23 +1,25 @@
-<p>You can upload a csv file with the format date(dd/mm/yy), description, amount, balance (if known) </p>
-<div ng-controller="UploadMovementsCtrl" >
+<div class="row">
+    <p>You can upload a csv file with the format date(dd/mm/yy), description, amount, balance (if known) </p>
+    <div ng-controller="UploadMovementsCtrl" >
         <p>{{ movement.CSVUploadMessage }}</p>
-    <label for="id_file">Csv File:</label>
-    <input id="id_file" type="file" name="file" onchange="angular.element(this).scope().uploadCSV(this.files)"/>
+        <label for="id_file">Csv File:</label>
+        <input id="id_file" type="file" name="file" onchange="angular.element(this).scope().uploadCSV(this.files)"/>
 
-    <p>You can also add manually a movement.</p>
-    <form name="addMovementForm" class="form-inline" ng-submit="addMovement()">
-        <div class="form-group">
-            <label for="mov_date">Date:</label>
-            <input id="mov_date" class="form-control" ng-model="movement.date" name="movDate" type="date">
-        </div>
-        <div class="form-group">
-            <label for="mov_description">Description:</label>
-            <input id="mov_description" class="form-control" ng-model="movement.description" name="movDescription" type="text" maxlength="130">
-        </div>
-        <div class="form-group">
-            <label for="mov_amount">Amount:</label>
-            <input id="mov_amount" class="form-control" ng-model="movement.amount" name="movAmount" type="number" step="0.01">
-        </div>
-        <button type="submit" class="btn btn-default">Add movement</button>
-    </form>
+        <p>You can also add manually a movement.</p>
+        <form name="addMovementForm" class="form-inline" ng-submit="addMovement()">
+            <div class="form-group">
+                <label for="mov_date">Date:</label>
+                <input id="mov_date" class="form-control" ng-model="movement.date" name="movDate" type="date">
+            </div>
+            <div class="form-group">
+                <label for="mov_description">Description:</label>
+                <input id="mov_description" class="form-control" ng-model="movement.description" name="movDescription" type="text" maxlength="130">
+            </div>
+            <div class="form-group">
+                <label for="mov_amount">Amount:</label>
+                <input id="mov_amount" class="form-control" ng-model="movement.amount" name="movAmount" type="number" step="0.01">
+            </div>
+            <button type="submit" class="btn btn-default">Add movement</button>
+        </form>
+    </div>
 </div>

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <a href="{% url 'userApp.views.user_logout' %}">Logout</a>
-    <div ng-app="movementApp" class="angular-content">
-        <h2>Hello {{ user.username }}</h2>
-        <a href="addMovements" class="btn btn-default">Add movements</a>
-        <a href="movements" class="btn btn-default">Show movements</a>
-        <div ng-view></div>
+    <h2>Hello {{ user.username }}</h2>
+    <div ng-app="movementApp">
+        <a ui-sref="addMovements" class="btn btn-default">Add movements</a>
+        <a ui-sref="movements" class="btn btn-default">Show movements</a>
+        <div ui-view class="angular-content"></div>
     </div>
 {% endblock %}
 {% block jsfiles %}
