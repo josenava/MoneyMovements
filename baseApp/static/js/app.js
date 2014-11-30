@@ -19,6 +19,11 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
             url: '/movements',
             controller: 'ShowCtrl',
             templateUrl: '/static/templates_angularViews/movements.html'
+        })
+        .state('categories', {
+            url: '/categories',
+            controller: 'CategoriesCtrl',
+            templateUrl: '/static/templates_angularViews/categories.html'
         });
 //    $routeProvider.
 //        when('/addMovements', {
@@ -34,3 +39,39 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
 //        });
 //    $locationProvider.html5Mode(true);
 });
+
+app.directive('tagElement', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            name: '@',
+            onDelete: '&'
+        },
+        template: '<li class="tag-element">{{ name }} <span class="glyphicon glyphicon-remove" ng-click="onDelete(name)"></span></li>',
+        replace: true
+    };
+});
+
+app.factory('categoriesFactory', ['$http', function($http) {
+    var urlBase = '/api/categories';
+    var categoriesFactory = {};
+
+    categoriesFactory.getCategories = function() {
+        return $http.get(urlBase);
+    };
+
+    categoriesFactory.deleteCategory = function(name) {
+        return $http.delete(urlBase + '/' + name);
+    };
+
+    categoriesFactory.createCategory = function(category_data) {
+        return $http({
+            method: 'post',
+            url: urlBase + '/',
+            data: category_data,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+    };
+
+    return categoriesFactory;
+}]);

@@ -1,20 +1,21 @@
 <div class="row">
     <div class="col-md-6">
         <h3>TOP 5 expensive movements</h3>
-
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Description</th>
                     <th>Amount</th>
+                    <th>Tags</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="movement in movements">
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ movement.fields.description }}</td>
-                    <td ng-class="{'negNumber': movement.fields.amount < 0 }">{{ movement.fields.amount | currency:"€" }}</td>
+                    <td>{{ movement.description }}</td>
+                    <td ng-class="{'negNumber': movement.amount < 0 }">{{ movement.amount | currency:"€" }}</td>
+                    <td><ul class="list-inline"><tag-element ng-repeat="category in movement.categories" name="{{ category.fields.name }}" ></tag-element></ul></td>
                 </tr>
             </tbody>
         </table>
