@@ -31,13 +31,15 @@ def add_movement(request):
 
 def get_movements(request, nMov):
     if 'GET' == request.method and request.user.is_authenticated():
-        movements_set = Movement.objects.filter(user=request.user).order_by('amount')[:nMov]
+        start_date = request.GET['start_date']
+        end_date = request.GET['end_date']
+
+        movements_set = Movement.objects.filter(user=request.user, date__gte=start_date, date__lte=end_date).order_by('amount')[:nMov]
         movements = []
         for m in movements_set:
             categories = serializers.serialize('json', m.categories.all(), fields=('name'))
             movements.append(json.dumps({'description': m.description, 'amount': m.amount, 'categories': categories}))
 
-        print movements
         return JsonResponse({'nMov': nMov, 'movements': movements}, status=200)
 
 def categories_api_calls(request, name=None):

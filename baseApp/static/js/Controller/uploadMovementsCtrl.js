@@ -4,7 +4,6 @@
 app.controller('UploadMovementsCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.movement = {};
     $scope.addMovement = function() {
-        console.log($scope.movement.date, $scope.movement.description, $scope.movement.amount);
         $http({
             method: 'post',
             url: 'api/add/',

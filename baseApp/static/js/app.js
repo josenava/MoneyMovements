@@ -75,3 +75,14 @@ app.factory('categoriesFactory', ['$http', function($http) {
 
     return categoriesFactory;
 }]);
+
+app.factory('movementsFactory', ['$http', function($http) {
+    var urlBase = '/api/movements';
+    var movementsFactory = {};
+
+    movementsFactory.getMovements = function(number, startDate, endDate) {
+        return $http.get(urlBase + '/' + number + '/', {params:{start_date: startDate, end_date: endDate}});
+    };
+
+    return movementsFactory;
+}]);
