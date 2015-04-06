@@ -1,7 +1,7 @@
 /**
  * Created by josenava on 05/11/14.
  */
-var app = angular.module('movementApp', ['ui.router']);
+var app = angular.module('movementApp', ['ui.router', 'highcharts-ng']);
 
 app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
@@ -80,8 +80,17 @@ app.factory('movementsFactory', ['$http', function($http) {
     var urlBase = '/api/movements';
     var movementsFactory = {};
 
-    movementsFactory.getMovements = function(number, startDate, endDate) {
-        return $http.get(urlBase + '/' + number + '/', {params:{start_date: startDate, end_date: endDate}});
+    movementsFactory.getMovements = function(number, startDate, endDate, categoryId) {
+        return $http.get(urlBase + '/' + number + '/',
+            {
+                params:
+                    {
+                        start_date: startDate,
+                        end_date: endDate,
+                        categoryId: categoryId
+                    }
+            }
+        );
     };
 
     return movementsFactory;

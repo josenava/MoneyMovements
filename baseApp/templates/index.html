@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+
+{% block applinks %}
+    <li><a ui-sref="addMovements" class="btn btn-default">Add movements</a></li>
+    <li><a ui-sref="categories" class="btn btn-default">Categories</a></li>
+    <li><a ui-sref="movements" class="btn btn-default">Show movements</a></li>
+{% endblock %}
+{% block logout %}
+<li><a class="navbar-link navbar-right" href="{% url 'userApp.views.user_logout' %}">Logout</a></li>
+{% endblock %}
 {% block content %}
-    <a href="{% url 'userApp.views.user_logout' %}">Logout</a>
     <h2>Hello {{ user.username }}</h2>
-    <div ng-app="movementApp">
-        <a ui-sref="addMovements" class="btn btn-default">Add movements</a>
-        <a ui-sref="categories" class="btn btn-default">Categories</a>
-        <a ui-sref="movements" class="btn btn-default">Show movements</a>
-        <div ui-view class="angular-content"></div>
-    </div>
+    <p>Hey your last movement is from: {{ last_movement_date }}</p>
+    <div ui-view class="angular-content"></div>
+
 {% endblock %}
 {% block jsfiles %}
 {% endblock %}

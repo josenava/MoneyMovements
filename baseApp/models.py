@@ -11,7 +11,6 @@ class Category(models.Model):
 class Movement(models.Model):
     description = models.CharField(max_length=150)
     amount = models.FloatField()
-    balance = models.FloatField()
     date = models.DateField()
     user = models.ForeignKey(User)
     categories = models.ManyToManyField(Category)
@@ -24,13 +23,11 @@ class Movement(models.Model):
         :param user_categories: list of categories by user
         :return: assigns movement to user categories
         """
-        description_words = description.split(' ')
         movement_categories = []
-        # TODO make this algorithm faster
         for c in user_categories:
             category_related_words = c.related_words.split(';')[:-1]
-            for word in description_words:
-                if word in category_related_words:
+            for crw in category_related_words:
+                if -1 != unicode(description, 'utf-8').find(crw):
                     movement_categories.append(c)
                     break
 

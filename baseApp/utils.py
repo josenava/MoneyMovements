@@ -21,9 +21,8 @@ def processCsvFile(fileName, reqUser):
             if 0 != i:
                 movement = Movement(
                     description=row[1],
-                    amount=float(row[2]),
-                    balance=float(row[3]),
-                    date=tz.localize(datetime.strptime(row[0], '%d/%m/%y')),
+                    amount=float(row[2].replace(',', '.')),
+                    date=tz.localize(datetime.strptime(row[0], '%d/%m/%Y')),
                     user=reqUser
                 )
                 movement.save()

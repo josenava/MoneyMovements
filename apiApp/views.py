@@ -33,12 +33,27 @@ def get_movements(request, nMov):
     if 'GET' == request.method and request.user.is_authenticated():
         start_date = request.GET['start_date']
         end_date = request.GET['end_date']
+        category = request.GET.get('categoryId', None)
 
-        movements_set = Movement.objects.filter(user=request.user, date__gte=start_date, date__lte=end_date).order_by('amount')[:nMov]
+        if category is not None:
+            movements_set = Movement.objects.filter(
+                user=request.user,
+                date__gte=start_date,
+                date__lte=end_date
+            ).filter(categories=category).order_by('amount')[:nMov]
+        else:
+            movements_set = Movement.objects.filter(user=request.user, date__gte=start_date, date__lte=end_date).order_by('amount')[:nMov]
         movements = []
         for m in movements_set:
             categories = serializers.serialize('json', m.categories.all(), fields=('name'))
-            movements.append(json.dumps({'description': m.description, 'amount': m.amount, 'categories': categories}))
+            movements.append(json.dumps(
+                {
+                    'description': m.description,
+                    'amount': m.amount,
+                    'categories': categories,
+                    'date': str(m.date)
+                }
+            ))
 
         return JsonResponse({'nMov': nMov, 'movements': movements}, status=200)
 
