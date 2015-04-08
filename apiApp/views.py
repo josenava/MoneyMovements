@@ -3,7 +3,7 @@ import json
 from django.core import serializers
 from baseApp.models import Movement
 from datetime import datetime
-from baseApp.utils import processCsvFile, get_user_categories, create_category, update_category, delete_category
+from baseApp.utils import processCsvFile, get_user_categories, create_category, update_category, delete_category, get_categories_total_amount
 
 # Create your views here.
 def import_file(request):
@@ -60,7 +60,11 @@ def get_movements(request, nMov):
 def categories_api_calls(request, name=None):
     if request.user.is_authenticated():
         if 'GET' == request.method:
-            categories = get_user_categories(request, name)
+            is_total_call = request.GET.get('total_amount', None)
+            if is_total_call is None:
+                categories = get_user_categories(request, name)
+            else:
+                categories = get_categories_total_amount(request)
             return JsonResponse({'categories': categories}, status=200)
         elif 'POST' == request.method:
             (msg, statusCode) = create_category(request)

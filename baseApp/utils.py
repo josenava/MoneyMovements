@@ -5,6 +5,7 @@ from datetime import datetime
 from models import Movement, Category
 from django.core import serializers
 from baseApp.forms import CategoryForm
+from django.db.models import Sum
 
 
 def processCsvFile(fileName, reqUser):
@@ -42,6 +43,16 @@ def get_user_categories(request, name):
             return []
     else:
         pass
+
+def get_categories_total_amount(request):
+    start_date = request.GET['start_date']
+    end_date = request.GET['end_date']
+    return json.dumps(list(Category.objects.filter(
+            user=request.user,
+            movement__date__gte=start_date,
+            movement__date__lte=end_date
+        ).annotate(total_amount=Sum('movement__amount')).values('name', 'total_amount'))
+    )
 
 def create_category(request):
     formFields = CategoryForm(json.loads(request.body))

@@ -73,6 +73,19 @@ app.factory('categoriesFactory', ['$http', function($http) {
         });
     };
 
+    categoriesFactory.getCategoriesTotalAmount = function(startDate, endDate) {
+        return $http.get(urlBase,
+            {
+                params:
+                    {
+                        total_amount: true,
+                        start_date: startDate,
+                        end_date: endDate
+                    }
+            }
+        );
+    };
+
     return categoriesFactory;
 }]);
 

@@ -10,5 +10,10 @@ def index(request):
             return render(request, 'login.html')
         else:
             max_date = Movement.objects.all().filter(user=request.user).aggregate(Max('date'))
-            return render(request, 'index.html', {'user': request.user, 'last_movement_date': str(max_date['date__max'])})
+            return render(request, 'index.html',
+                          {
+                              'user': request.user,
+                              'last_movement_date': str(max_date['date__max'])
+                          }
+                    )
     return Http404

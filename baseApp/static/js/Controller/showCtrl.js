@@ -88,7 +88,10 @@ app.controller('ShowCtrl', ['$scope', '$http', 'movementsFactory', 'categoriesFa
                     $scope.availableCategories = JSON.parse(data.categories);
                     console.log($scope.availableCategories);
                 });
-
+            categoriesFactory.getCategoriesTotalAmount(startDate, endDate)
+                .success(function(data) {
+                   $scope.categoryExpenses = JSON.parse(data.categories);
+                });
 
         }
         else {
@@ -110,5 +113,6 @@ app.controller('ShowCtrl', ['$scope', '$http', 'movementsFactory', 'categoriesFa
                     });
                     $scope.categoryMovements = categoryMovements;
             });
-    }
+    };
+
 }]);

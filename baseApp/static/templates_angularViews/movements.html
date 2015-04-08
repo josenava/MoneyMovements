@@ -40,6 +40,29 @@
     </div>
 </div>
 
+
+<h3>Total expenses by category</h3>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="ce in categoryExpenses">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ ce.name }}</td>
+            <td ng-class="{'negNumber': ce.total_amount < 0 }">{{ ce.total_amount | currency:"€" }}</td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+
 <div class="row">
         <h3 class="col-md-8">Top 5 movements by category</h3>
         <select ng-model="selectedCategory"
@@ -73,6 +96,8 @@
         </table>
     </div>
 </div>
+
+
 
 <h1>Chart to be implemented</h1>
 
