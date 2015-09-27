@@ -53,6 +53,7 @@ app.directive('tagElement', function() {
 });
 
 app.factory('categoriesFactory', ['$http', function($http) {
+
     var urlBase = '/api/categories';
     var categoriesFactory = {};
 
@@ -90,6 +91,7 @@ app.factory('categoriesFactory', ['$http', function($http) {
 }]);
 
 app.factory('movementsFactory', ['$http', function($http) {
+
     var urlBase = '/api/movements';
     var movementsFactory = {};
 

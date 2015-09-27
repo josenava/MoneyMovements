@@ -3,8 +3,10 @@ from django.http import Http404
 from .models import Movement
 from django.db.models import Max
 from .forms import UploadFileForm
-# Create your views here.
+
+
 def index(request):
+
     if 'GET' == request.method:
         if not request.user.is_authenticated():
             return render(request, 'login.html')

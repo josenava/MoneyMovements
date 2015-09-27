@@ -1,0 +1,9 @@
+baseApp/*.pyc
+apiApp/*.pyc
+userApp/*.pyc
+money_movements/*.pyc
+static/*
+.sass-cache
+money_movements/*
+bower_components/*
+static/js/lib
