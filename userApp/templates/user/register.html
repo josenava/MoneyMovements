@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 {% block content %}
     <h1>Money analyzer app register form</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    <form action="{% url 'userApp.views.sign_up' %}" method="post" class="form-horizontal" role="form">
+    <form action="{% url 'sign-up' %}" method="post" class="form-horizontal" role="form">
     {% csrf_token %}
         <div class="form-group">
             <label for="inputEmail" class="col-sm-2 control-label">Email</label>

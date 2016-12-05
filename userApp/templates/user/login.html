@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 {% block content %}
     <h1>Money app login</h1>
     {% if error_message %}{{ error_message }}{% endif %}
-    <form action="{% url 'userApp.views.user_login' %}" method="post" class="form-horizontal" role="form">
+    <form action="{% url 'user-login' %}" method="post" class="form-horizontal" role="form">
     {% csrf_token %}
     <div class="form-group">
         <label for="inputEmail" class="col-sm-2 control-label">Email</label>
@@ -22,5 +22,5 @@
         </div>
     </div>
     </form>
-    <a href="{% url 'userApp.views.sign_up' %}">Sign up</a>
+    <a href="{% url 'sign-up' %}">Sign up</a>
 {% endblock %}

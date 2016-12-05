@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block applinks %}
     <li><a ui-sref="addMovements" class="btn btn-default">Add movements</a></li>
@@ -6,7 +6,7 @@
     <li><a ui-sref="movements" class="btn btn-default">Show movements</a></li>
 {% endblock %}
 {% block logout %}
-<li><a class="navbar-link navbar-right" href="{% url 'userApp.views.user_logout' %}">Logout</a></li>
+<li><a class="navbar-link navbar-right" href="{% url 'user-logout' %}">Logout</a></li>
 {% endblock %}
 {% block content %}
     <h2>Hello {{ user.username }}</h2>

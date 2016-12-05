@@ -3,39 +3,46 @@ import json
 from django.core import serializers
 from baseApp.models import Movement
 from datetime import datetime
-from baseApp.utils import processCsvFile, get_user_categories, create_category, update_category, delete_category, get_categories_total_amount
+from baseApp.utils import processCsvFile, get_user_categories, create_category
+from baseApp.utils import update_category, delete_category
+from baseApp.utils import get_categories_total_amount
 
-# Create your views here.
+
 def import_file(request):
     if 'POST' == request.method and request.user.is_authenticated():
         if request.FILES is not None:
+            # TODO dispatch event.
             processCsvFile(request.FILES['file'], request.user)
+
         return JsonResponse({'uploaded': 'ok'})
-    
+
     return Http404
+
 
 def add_movement(request):
     if 'POST' == request.method and request.user.is_authenticated():
-        formFields = json.loads(request.body)
+        formFields = json.loads(request.body.decode('utf-8'))
         # TODO create a from and validate the fields inside
         movement = Movement(
                     description=formFields['movDescription'],
                     amount=float(formFields['movAmount']),
-                    balance=3,
                     date=datetime.now(),
                     user=request.user
                 )
         movement.save()
+
         return JsonResponse({'uploaded': 'ok'}, status=200)
+
     return Http404
 
-def get_movements(request, nMov):
 
+def get_movements(request, nMov):
+    nMov = int(nMov)
     if 'GET' == request.method and request.user.is_authenticated():
         start_date = request.GET['start_date']
         end_date = request.GET['end_date']
         category = request.GET.get('categoryId', None)
-    
+
         if category is not None:
             movements_set = Movement.objects.filter(
                 user=request.user,
@@ -48,6 +55,7 @@ def get_movements(request, nMov):
                 date__gte=start_date,
                 date__lte=end_date
             ).order_by('amount')[:nMov]
+
         movements = []
 
         for m in movements_set:
@@ -63,6 +71,9 @@ def get_movements(request, nMov):
 
         return JsonResponse({'nMov': nMov, 'movements': movements}, status=200)
 
+    return Http404
+
+
 def categories_api_calls(request, name=None):
     if request.user.is_authenticated():
         if 'GET' == request.method:
@@ -70,7 +81,7 @@ def categories_api_calls(request, name=None):
 
             if is_total_call is None:
                 categories = get_user_categories(request, name)
-            else:
+            elif 'true' == is_total_call:
                 categories = get_categories_total_amount(request)
 
             return JsonResponse({'categories': categories}, status=200)

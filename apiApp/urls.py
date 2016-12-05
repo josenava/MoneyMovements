@@ -1,9 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url
+from . import views
 
-urlpatterns = patterns('',
-                       url(r'^import/', 'apiApp.views.import_file'),
-                       url(r'^add/', 'apiApp.views.add_movement'),
-                       url(r'^movements/(?P<nMov>[0-9]+)/$', 'apiApp.views.get_movements'),
-                       url(r'^categories/$', 'apiApp.views.categories_api_calls'),
-                       url(r'^categories/(?P<name>\w+)/$', 'apiApp.views.categories_api_calls'),
-                       )
+urlpatterns = [
+    url(r'^import/', views.import_file),
+    url(r'^add/', views.add_movement),
+    url(r'^movements/(?P<nMov>\d+)/$', views.get_movements),
+    url(r'^categories/$', views.categories_api_calls),
+    url(r'^categories/(?P<name>\w+)/$', views.categories_api_calls),
+]

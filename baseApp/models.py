@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     related_words = models.TextField()
@@ -24,11 +24,12 @@ class Movement(models.Model):
         :return: assigns movement to user categories
         """
         movement_categories = []
-        for c in user_categories:
-            category_related_words = c.related_words.split(';')[:-1]
+
+        for category in user_categories:
+            category_related_words = category.related_words.split(';')[:-1]
             for crw in category_related_words:
-                if -1 != unicode(description, 'utf-8').find(crw):
-                    movement_categories.append(c)
+                if description.find(crw.lower()) != -1:
+                    movement_categories.append(category)
                     break
 
         if len(movement_categories) > 0:
