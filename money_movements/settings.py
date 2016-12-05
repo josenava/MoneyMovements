@@ -75,8 +75,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'money_app',
-        'USER': 'dev',
-        'PASSWORD': 'dev',
+        'USER': 'amazingfakeuser',
+        'PASSWORD': 'incrediblefakepassword',
         'HOST': '127.0.0.1',
     }
 }
