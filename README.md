@@ -6,4 +6,5 @@ via csv file or insert them manually.
 
 ### Stack
 - Django 2.0
+- Django Rest Framework
 - MySQL 5.7
