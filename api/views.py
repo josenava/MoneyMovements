@@ -4,7 +4,8 @@ from rest_framework import generics, permissions, views
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-
+from io import TextIOWrapper
+import csv
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
@@ -62,6 +63,15 @@ class BulkUpload(views.APIView):
 
     def post(self, request):
         # TODO validate and parse file
-        file = request.data['file']
-        return Response({'test': 'successful'})
+        csv_file = TextIOWrapper(request.data['file'])
+        # movements = CSVParser.convert_to(file, serializer=MovementSerializer)
+        reader = csv.DictReader(csv_file)
+        for row in reader:
+            row['categories'] = []
+            row['user'] = request.user.id
+            serializer = MovementSerializer(data=row)
+            if serializer.is_valid():
+                serializer.save(user=self.request.user)
+
+        return Response()
 
