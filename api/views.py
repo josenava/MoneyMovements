@@ -1,5 +1,5 @@
-from api.models import Category, Movement
-from api.serializers import CategorySerializer, UserSerializer, MovementSerializer
+from api.models import Category, Transaction
+from api.serializers import CategorySerializer, UserSerializer, TransactionSerializer
 from rest_framework import generics, permissions, views
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
@@ -39,22 +39,22 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class MovementList(generics.ListCreateAPIView):
-    serializer_class = MovementSerializer
+    serializer_class = TransactionSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Movement.objects.filter(user=self.request.user)
+        return Transaction.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
 class MovementDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = MovementSerializer
+    serializer_class = TransactionSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Movement.objects.filter(user=self.request.user)
+        return Transaction.objects.filter(user=self.request.user)
 
 
 class BulkUpload(views.APIView):
@@ -64,12 +64,12 @@ class BulkUpload(views.APIView):
     def post(self, request):
         # TODO validate and parse file
         csv_file = TextIOWrapper(request.data['file'])
-        # movements = CSVParser.convert_to(file, serializer=MovementSerializer)
+        # movements = CSVParser.convert_to(file, serializer=TransactionSerializer)
         reader = csv.DictReader(csv_file)
         for row in reader:
             row['categories'] = []
             row['user'] = request.user.id
-            serializer = MovementSerializer(data=row)
+            serializer = TransactionSerializer(data=row)
             if serializer.is_valid():
                 serializer.save(user=self.request.user)
 

@@ -1,5 +1,5 @@
 """
-WSGI config for money_movements project.
+WSGI config for money_transactions project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "money_movements.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "money_transactions.settings")
 
 application = get_wsgi_application()
