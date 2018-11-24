@@ -78,7 +78,12 @@ WSGI_APPLICATION = 'money_movements.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ('POSTGRES_NAME'),
+        'USER': os.environ('POSTGRES_USER'),
+        'PASSWORD': os.environ('POSTGRES_PASSWORD'),
+        'HOST': os.environ('POSTGRES_HOST'),
+        'PORT': os.environ('POSTGRES_PORT'),
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'my.cnf')
         },

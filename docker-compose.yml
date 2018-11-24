@@ -1,0 +1,29 @@
+version: '3'
+services:
+  api:
+    container_name: money_transactions_api
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app/money_transactions/
+    tty: true
+    env_file:
+      - .env.local
+  db:
+    image: postgres:11.1
+    environment:
+      POSTGRES_USER: money_transactions
+      POSTGRES_PASSWORD: transactions19
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  rabbit:
+    image: rabbitmq:3.7-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  pgdata:
